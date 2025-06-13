@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Optional: Custom slider styles */
+input[type="range"]::-webkit-slider-thumb {
+  @apply appearance-none w-4 h-4 bg-purple-500 rounded-full cursor-pointer;
+}
+input[type="range"]::-moz-range-thumb {
+  @apply appearance-none w-4 h-4 bg-purple-500 rounded-full cursor-pointer;
+}
