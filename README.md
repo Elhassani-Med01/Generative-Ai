@@ -6,7 +6,7 @@
 A collaborative Human-AI framework leveraging the power of ComfyUI for modular generative AI workflows and Large Language Models (LLMs) for intuitive prompt engineering and iterative design refinement. This project aims to accelerate concept exploration and visual prototyping in industrial product design.
 
 <p align="center">
-  <img src="docs/images/application-interface.png" alt="Generative AI Design Studio Interface" width="700"/>
+  <img src="docs/images/application-interface.jpeg" alt="Generative AI Design Studio Interface" width="700"/>
   <br/><em>Main interface of the Generative AI Design Studio.</em>
 </p>
 
