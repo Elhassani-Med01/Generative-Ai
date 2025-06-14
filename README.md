@@ -69,43 +69,45 @@ The application comprises three main components: a React frontend for user inter
     </p>
 *   **Workflow Definitions:** ComfyUI JSON API format (stored in `frontend/src/workflows/`)
 
+```markdown
 ## 📁 Project Structure
+```text
 .
-├── backend/ # Node.js Express server for LLM proxy
-│ ├── node_modules/
-│ ├── server.js # Main backend server logic
-│ ├── package.json
-│ └── package-lock.json
-├── frontend/ # React frontend application
-│ ├── public/
-│ ├── src/
-│ │ ├── api/ # API call functions (comfyApi.js)
-│ │ ├── assets/ # Static assets (not present in current repo)
-│ │ ├── components/ # Core UI components
-│ │ │ ├── workflow-panels/ # UI panels for each ComfyUI workflow
-│ │ │ ├── ComfyUIWrapper.jsx # Main application orchestrator
-│ │ │ ├── DrawingCanvas.jsx
-│ │ │ ├── FeedbackChatbot.jsx
-│ │ │ └── PromptChatbot.jsx
-│ │ ├── workflows/ # ComfyUI JSON workflow templates (e.g., Image-gen.json)
-│ │ ├── App.css
-│ │ ├── App.js
-│ │ ├── App.test.js
-│ │ ├── index.css # Tailwind CSS setup
-│ │ ├── index.js
-│ │ ├── promptContexts.js # Contexts for LLM interactions
-│ │ └── reportWebVitals.js
-│ ├── node_modules/
-│ ├── .env.example # Example environment variables for frontend
-│ ├── package.json
-│ ├── package-lock.json
-│ └── tailwind.config.js
-├── workflows/ # Root level copy of workflow JSONs (ensure consistency or remove if redundant)
-│ ├── 3d-Gen.json
-│ └── ... (other .json files)
+├── backend/                  # Node.js Express server for LLM proxy
+│   ├── node_modules/
+│   ├── server.js            # Main backend server logic
+│   ├── package.json
+│   └── package-lock.json
+├── frontend/                # React frontend application
+│   ├── public/
+│   ├── src/
+│   │   ├── api/             # API call functions (comfyApi.js)
+│   │   ├── assets/          # Static assets
+│   │   ├── components/      # Core UI components
+│   │   │   ├── workflow-panels/
+│   │   │   ├── ComfyUIWrapper.jsx
+│   │   │   ├── DrawingCanvas.jsx
+│   │   │   ├── FeedbackChatbot.jsx
+│   │   │   └── PromptChatbot.jsx
+│   │   ├── workflows/       # ComfyUI JSON workflow templates
+│   │   ├── App.css
+│   │   ├── App.js
+│   │   ├── App.test.js
+│   │   ├── index.css
+│   │   ├── index.js
+│   │   ├── promptContexts.js
+│   │   └── reportWebVitals.js
+│   ├── node_modules/
+│   ├── .env.example
+│   ├── package.json
+│   ├── package-lock.json
+│   └── tailwind.config.js
+├── workflows/               # Root-level copy of workflow JSONs
+│   ├── 3d-Gen.json
+│   └── ...
 ├── .gitignore
-└── README.md # This file
-*Note: There's a `workflows/` directory at the root and also at `frontend/src/workflows/`. The application (`ComfyUIWrapper.jsx`) imports JSONs from `frontend/src/workflows/`. Ensure this is the intended structure or reconcile them.*
+└── README.md                # This file
+```
 
 ## 📋 Prerequisites
 
