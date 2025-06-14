@@ -1,13 +1,13 @@
 # Generative AI Design Studio: ComfyUI + LLM for Enhanced Product Design
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+<!-- Assuming you will add an MIT LICENSE file -->
 
 A collaborative Human-AI framework leveraging the power of ComfyUI for modular generative AI workflows and Large Language Models (LLMs) for intuitive prompt engineering and iterative design refinement. This project aims to accelerate concept exploration and visual prototyping in industrial product design.
 
-<!-- Add a compelling screenshot or GIF of your application in action -->
-<!-- e.g., ![Generative AI Design Studio In Action](docs/images/screenshot.png) -->
 <p align="center">
-  <em>(Add a screenshot or GIF of your application interface here)</em>
+  <img src="docs/images/application-interface.png" alt="Generative AI Design Studio Interface" width="700"/>
+  <br/><em>Main interface of the Generative AI Design Studio.</em>
 </p>
 
 ## Overview
@@ -21,6 +21,11 @@ The Generative AI Design Studio provides a user-friendly React interface to inte
 *   Generate diverse visual concepts, variations, 2D-to-3D models (GLB), and more, with dynamic control over ComfyUI parameters.
 
 This project focuses on making advanced generative AI more accessible and controllable for designers, fostering a symbiotic relationship between human creativity and AI capabilities.
+
+<p align="center">
+  <img src="docs/images/example-result.png" alt="Example Generated Result" width="500"/>
+  <br/><em>Example of a design concept generated using the studio.</em>
+</p>
 
 ## ✨ Features
 
@@ -43,12 +48,25 @@ This project focuses on making advanced generative AI more accessible and contro
 *   **Model Selection:** Choose from available Checkpoint and ControlNet models detected from your ComfyUI instance.
 *   **Image & 3D Model Management:** View generated outputs, download images, and download 3D GLB files.
 
+## 🏗️ System Architecture
+
+The application comprises three main components: a React frontend for user interaction, a Node.js backend serving as an LLM proxy, and a ComfyUI instance for generative AI tasks.
+
+<p align="center">
+  <img src="docs/images/system-architecture.png" alt="System Architecture Diagram" width="600"/>
+  <br/><em>High-level architecture showing the interaction between Frontend, Backend (LLM Proxy), and ComfyUI.</em>
+</p>
+
 ## 🛠️ Tech Stack
 
 *   **Frontend:** React (v18+), Tailwind CSS, Lucide Icons, Axios
 *   **Backend (LLM Proxy):** Node.js, Express.js, node-fetch, dotenv, cors, body-parser
 *   **LLM Engine:** Ollama (running models like Mistral, Llama 3)
-*   **Generative AI Engine:** ComfyUI (interacted with via its API)
+*   **Generative AI Engine:** **ComfyUI** (interacted with via its API). ComfyUI allows for building complex image generation pipelines using a node-based interface, as shown below.
+    <p align="center">
+      <img src="docs/images/comfyui-workflow-example.jpeg" alt="Example ComfyUI Workflow Diagram" width="550"/>
+      <br/><em>Example of a node-based workflow in ComfyUI (e.g., a Text-to-Image pipeline).</em>
+    </p>
 *   **Workflow Definitions:** ComfyUI JSON API format (stored in `frontend/src/workflows/`)
 
 ## 📁 Project Structure
@@ -87,7 +105,6 @@ This project focuses on making advanced generative AI more accessible and contro
 │ └── ... (other .json files)
 ├── .gitignore
 └── README.md # This file
-
 *Note: There's a `workflows/` directory at the root and also at `frontend/src/workflows/`. The application (`ComfyUIWrapper.jsx`) imports JSONs from `frontend/src/workflows/`. Ensure this is the intended structure or reconcile them.*
 
 ## 📋 Prerequisites
@@ -115,7 +132,7 @@ Before you begin, ensure you have the following installed and configured:
         *   `EmptySD3LatentImage` (used in `Canvas-Sketch.json` and `Ready Sketch 2 image .json`).
         *   Any other nodes specific to the classes found in your workflow JSON files.
 *   **Ollama:**
-    *   Install Ollama from [ollama.com](https://ollama.com/) (corrected from .ai).
+    *   Install Ollama from [ollama.com](https://ollama.com/).
     *   Pull the LLMs used by the backend server (`server.js`):
         ```bash
         ollama pull mistral
@@ -144,7 +161,6 @@ Before you begin, ensure you have the following installed and configured:
     ```env
     OLLAMA_URL=http://127.0.0.1:11434
     ```
-    *(Note: `server.js` appends `/api/generate` to this URL).*
 
 4.  **Setup Frontend React Application:**
     ```bash
@@ -156,8 +172,6 @@ Before you begin, ensure you have the following installed and configured:
     REACT_APP_COMFYUI_URL=http://127.0.0.1:8188
     REACT_APP_OLLAMA_PROXY_URL=http://localhost:3001/api
     ```
-    *   Adjust `REACT_APP_COMFYUI_URL` if your ComfyUI is on a different address/port.
-    *   `REACT_APP_OLLAMA_PROXY_URL` should point to your backend server.
 
 ## ⚙️ Configuration
 
@@ -172,28 +186,40 @@ Before you begin, ensure you have the following installed and configured:
 
 You need to have **four** separate processes running concurrently:
 
-1.  **Start ComfyUI:**
-    Navigate to your ComfyUI directory and run it with necessary flags.
+1.  **Start ComfyUI:** Navigate to your ComfyUI directory and run it with necessary flags.
     Example: `python main.py --enable-cors-header`
-
-2.  **Start Ollama:**
-    Ensure the Ollama application/service is running.
-
+2.  **Start Ollama:** Ensure the Ollama application/service is running.
 3.  **Start the Backend Server (LLM Proxy):**
     Open a new terminal, navigate to the `Generative-Ai/backend` directory:
     ```bash
     npm start
     ```
-    This will typically start the server on `http://localhost:3001`.
-
+    (Typically starts on `http://localhost:3001`)
 4.  **Start the Frontend React Application:**
     Open another new terminal, navigate to the `Generative-Ai/frontend` directory:
     ```bash
     npm start
     ```
-    This will usually open the application in your default web browser at `http://localhost:3000`.
+    (Typically opens `http://localhost:3000` in your browser)
 
 Access the application via `http://localhost:3000`.
+
+## 🔄 Core Operational Flow (Project Pipeline)
+
+The application facilitates an iterative design process where the designer collaborates with AI tools. The general pipeline is as follows:
+
+<p align="center">
+  <img src="docs/images/project-pipeline.jpeg" alt="Project Pipeline Diagram" width="700"/>
+  <br/><em>Visual representation of the iterative design cycle: Designer Input -> LLM Prompting -> ComfyUI Generation -> Evaluation & Feedback.</em>
+</p>
+
+1.  **Workflow Selection:** Designer chooses a task (e.g., Text-to-Image, Sketch-to-Image).
+2.  **Initial Input:** Designer provides text, uploads an image/sketch, or draws on the canvas.
+3.  **LLM-Assisted Prompting:** Interaction with `PromptChatbot` to formulate initial ComfyUI prompts.
+4.  **Parameter Configuration:** Setting ComfyUI parameters (models, steps, CFG, etc.).
+5.  **ComfyUI Execution:** The frontend sends the complete workflow to ComfyUI for generation.
+6.  **Result Evaluation:** Designer reviews the generated image(s) or 3D model.
+7.  **Iterative Refinement:** If needed, designer uses `FeedbackChatbot` to provide qualitative feedback, which the LLM translates into refined prompts. The process loops back to step 4 or 5.
 
 ## 🎨 Workflow Overview (UI Titles)
 
@@ -233,3 +259,16 @@ The application UI provides access to the following workflows:
 *   **User Authentication & Project Storage:** Save user sessions, prompts, and generated assets.
 *   **Improved Error Display:** More user-friendly error messages from backend/ComfyUI failures.
 *   **Multi-Modal LLM Integration:** Allow LLMs to "see" generated images for more contextual feedback.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please fork the repository and submit a pull request.
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
+
+## 📜 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
